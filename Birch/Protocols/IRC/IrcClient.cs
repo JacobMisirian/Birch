@@ -89,9 +89,9 @@ namespace Birch.Protocols.IRC {
             Thread.Sleep (100);
             OnConnectionMade (args);
 
-            Nickname = args.Nickname ?? "Birch";
+            Nickname = args.Nickname ?? BirchSettings.Instance.Nickname;
             Hostname = args.Hostname ?? "BirchClient";
-            Username = args.Realname ?? "Birch";
+            Username = args.Realname ?? BirchSettings.Instance.Username;
 
             SendRaw ("USER {0} {1} {2} :{3}", Nickname, Hostname, Hostname, Username);
             SendRaw ("NICK {0}", Nickname);
