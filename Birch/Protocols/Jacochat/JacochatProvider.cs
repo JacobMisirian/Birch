@@ -76,9 +76,11 @@ namespace Birch.Protocols {
         }
 
         public void SendMessage (string channel, string message) {
-            if (!message.StartsWith ("/")) {
-                client.Send (String.Format ("PRIVMSG {0} {1}", channel, message));
-            }
+            client.Send (String.Format ("PRIVMSG {0} {1}", channel, message));
+        }
+
+        public void SendRaw (string msg) {
+            client.Send (msg);
         }
 
         public void JoinChannel (string name) {

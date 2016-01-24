@@ -58,7 +58,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="JacoChatClient">
-      <HintPath>..\..\..\Downloads\JacoChatClient.exe</HintPath>
+      <HintPath>..\..\JacoChat\src\JacoChatClient\bin\Debug\JacoChatClient.exe</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

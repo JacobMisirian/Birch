@@ -200,20 +200,23 @@ namespace Birch.Frontend {
             string[] args = cmd.Substring (1).Split (' ');
             switch (args [0].ToUpper ()) {
                 case "JOIN":
-                    if (args.Length >= 2) {
+                    if (args.Length >= 2)
                         chatProvider.JoinChannel (args[1]);
-                    } else {
+                    else
                         AppendRaw ("Not enough arguments!");
-                    }
                     return true;
                 case "NICK":
-                    if (args.Length >= 2) {
+                    if (args.Length >= 2)
                         chatProvider.Nickname = args[1];
-                    } else {
+                    else
                         AppendRaw ("Not enough arguments!");
-                    }
                     return true;
-
+                case "RAW":
+                    if (args.Length >= 2)
+                        chatProvider.SendRaw (cmd.Substring (cmd.IndexOf (" ") + 1));
+                    else
+                        AppendRaw ("Not enough arguments!");
+                    return true;
             }
             return false;
         }

@@ -136,7 +136,7 @@ namespace Birch.Protocols.IRC {
             }
         }
 
-        private void SendRaw (string msg) {
+        public void SendRaw (string msg) {
             clientLock.WaitOne ();
             streamWriter.Write ("{0}\r\n", msg);
             streamWriter.Flush ();
