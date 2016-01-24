@@ -205,6 +205,14 @@ namespace Birch.Frontend {
                     else
                         AppendRaw ("Not enough arguments!");
                     return true;
+                case "PART":
+                    if (args.Length == 2)
+                        chatProvider.PartChannel (args[1]);
+                    else if (args.Length >= 3)
+                        chatProvider.PartChannel (args[1], args[2]);
+                    else
+                        AppendRaw ("Not enough arguments!");
+                    return true;
                 case "NICK":
                     if (args.Length >= 2)
                         chatProvider.Nickname = args[1];

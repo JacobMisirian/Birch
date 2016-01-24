@@ -14,5 +14,6 @@ namespace Birch {
         void SendMessage (string channel, string message);
         void SendRaw (string msg);
         void JoinChannel (string channel);
+        void PartChannel (string channel, string reason = "");
     }
 }

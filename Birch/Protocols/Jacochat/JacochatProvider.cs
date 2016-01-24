@@ -87,6 +87,11 @@ namespace Birch.Protocols {
             client.Send ("JOIN " + name);
             Console.WriteLine ("Attempted to join " + name);
         }
+
+        public void PartChannel (string channel, string reason = "") {
+            client.Send ("PART " + channel + " " + reason);
+            Console.WriteLine ("Attempted to part " + channel);
+        }
         
         private void SetNick (string name) {
             nickname = name;

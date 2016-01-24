@@ -109,7 +109,7 @@ namespace Birch.Protocols.IRC {
         }
 
         public void PartChannel (string channel, string reason = "") {
-
+            SendRaw ("PART {0} :{1}", channel, reason);
         }
 
         protected virtual void OnConnectionMade (ConnectEventArgs args) {
