@@ -113,9 +113,9 @@ namespace Birch.Frontend {
             if (networkListbox.SelectedItem != null) {
                 NetworkInformation information = (NetworkInformation)networkListbox.SelectedItem;
                 NetworkForm networkForm = new NetworkForm (information.Name);
-                IChatProvider proto = information.DoConnect (networkForm);
                 networkForm.MdiParent = BirchMainForm.Instance;
                 networkForm.Show ();
+                IChatProvider proto = information.DoConnect (networkForm);
                 Close ();
             }
         }
