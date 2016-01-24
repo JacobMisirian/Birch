@@ -39,38 +39,31 @@ namespace Birch.Protocols {
             switch (msg.JacoChatMessageType) {
                 case JacoChatMessageType.PRIVMSG:
                     string channel = msg.Channel == nickname ? msg.Sender : msg.Channel;
-                    if (!channels.ContainsKey (channel)) {
-                        channels.Add (channel, network.JoinChannel (channel));
-                    }
-                    if (!channel.StartsWith ("#")) {
+                    checkChannel (channel);
+                    if (!channel.StartsWith ("#"))
                         channels[channel].ShowNames = false;
-                    }
                     channels[channel].AppendMessage (msg.Sender, msg.Body);
                     break;
                 case JacoChatMessageType.NAMES:
-                    if (!channels.ContainsKey (msg.Channel)) {
-                        channels.Add (msg.Channel, network.JoinChannel (msg.Channel));
-                    }
+                    checkChannel (msg.Channel);
                     channels[msg.Channel].SetNamesList (msg.Body.Trim ().Split (' '));
                     break;
                 case JacoChatMessageType.NICK:
-                    if (!channels.ContainsKey (msg.Channel)) {
-                        channels.Add (msg.Channel, network.JoinChannel (msg.Channel));
-                    }
+                    checkChannel (msg.Channel);
                     channels[msg.Channel].OnChatEvent (ChatEventType.NickChange, msg.Sender, msg.Body);
                     break;
                 case JacoChatMessageType.JOIN:
-                    if (!channels.ContainsKey (msg.Channel)) {
-                        channels.Add (msg.Channel, network.JoinChannel (msg.Channel));
-                    }
+                    checkChannel (msg.Channel);
                     Console.WriteLine ("Join '{0}'", msg.Sender);
                     channels[msg.Channel].OnChatEvent (ChatEventType.UserJoin, msg.Sender);
                     break;
                 case JacoChatMessageType.PART:
-                    if (!channels.ContainsKey (msg.Channel)) {
-                        channels.Add (msg.Channel, network.JoinChannel (msg.Channel));
-                    }
+                    checkChannel (msg.Channel);
                     channels[msg.Channel].OnChatEvent (ChatEventType.UserPart, msg.Sender, msg.Body);
+                    break;
+                case JacoChatMessageType.ERROR:
+                case JacoChatMessageType.UNKNOWN:
+                    network.StatusBuffer.AppendRaw (msg.Body);
                     break;
             }
         }
@@ -96,6 +89,11 @@ namespace Birch.Protocols {
         private void SetNick (string name) {
             nickname = name;
             client.Send ("NICK " + name);
+        }
+
+        private void checkChannel (string channel) {
+            if (!channels.ContainsKey(channel))
+                channels.Add(channel, network.JoinChannel(channel));
         }
     }
 }
